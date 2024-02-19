@@ -73,24 +73,28 @@ The output shows the progress of the operation. When the cluster successfully in
 
 # apply ingress test manifests
 
-        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/springboohello-CICD/main/springboot-deployment.yaml
-        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/springboohello-CICD/main/springboot-service.yaml
+        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/kind-springboot/main/springboot-deployment.yaml
+        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/kind-springboot/main/springboot-service.yaml
+        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/kind-springboot/main/springboot-ingress.yaml
 
 # Check the pod,service,ingress
 
         kubectl get ing,svc,pod
-        NAME                                        CLASS    HOSTS           ADDRESS     PORTS   AGE
-        ingress.networking.k8s.io/example-ingress   <none>   ingress.local   localhost   80      45s
+        NAME                                           CLASS    HOSTS           ADDRESS     PORTS   AGE
+        ingress.networking.k8s.io/springboot-ingress   <none>   ingress.local   localhost   80      12m
         
-        NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-        service/bar-service   ClusterIP   10.96.18.173    <none>        8080/TCP   45s
-        service/foo-service   ClusterIP   10.96.246.180   <none>        8080/TCP   46s
+        NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)     AGE
+        service/kubernetes   ClusterIP   10.96.0.1     <none>        443/TCP     21m
+        service/springboot   ClusterIP   10.96.10.44   <none>        33333/TCP   8s
         
-        NAME          READY   STATUS    RESTARTS   AGE
-        pod/bar-app   1/1     Running   0          46s
-        pod/foo-app   1/1     Running   0          46s
+        NAME                              READY   STATUS    RESTARTS   AGE
+        pod/springboot-746db777fb-wlb2k   1/1     Running   0          18m
 
-To make ingress.local available in local browser, add to the /etc/hosts line.
+Now we can access application by either locally or by using node public IP:
 
-127.0.0.1 ingress.local – in my case cluster is running at 127.0.0.1.
-public_ip ingress.local - if cluster is running on any cloud
+        [root@ip-172-31-86-22 ~]# curl http://localhost/listallcustomers
+        [{"name":"vamsi","id":"001","country_of_birth":"INDIA","country_of_residence":"AP","segment":"retail"}]
+
+To access the app from browser open port 80:
+
+![image](https://github.com/tushardashpute/kind-springboot/assets/74225291/a9e7a420-4489-4305-a918-b206da828f59)
