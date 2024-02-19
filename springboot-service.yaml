@@ -5,7 +5,7 @@ metadata:
   labels:
    app: springboot
 spec:
-  type: clusterIP
+  type: ClusterIP
   ports:
   - port: 33333
     targetPort: 33333
