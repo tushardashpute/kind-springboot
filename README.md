@@ -73,7 +73,8 @@ The output shows the progress of the operation. When the cluster successfully in
 
 # apply ingress test manifests
 
-        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/open_ssl_nginx_kind_cluster/main/sample_app.yaml
+        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/springboohello-CICD/main/springboot-deployment.yaml
+        kubectl apply -f https://raw.githubusercontent.com/tushardashpute/springboohello-CICD/main/springboot-service.yaml
 
 # Check the pod,service,ingress
 
